@@ -10,42 +10,48 @@
             background: url('ai_background.jpg') no-repeat center center fixed;
             background-size: cover;
             text-align: center;
-            margin: 50px;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            max-width: 450px;
-            margin: auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            margin: 50px auto;
         }
         .header {
-            background: blue;
+            background: linear-gradient(to right, #0073e6, #004a99);
             color: white;
-            padding: 15px;
-            border-radius: 8px 8px 0 0;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            text-transform: uppercase;
+            font-weight: bold;
         }
         label, input, textarea, select {
             display: block;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
         }
         input, textarea, select {
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-size: 16px;
         }
         .rating {
             display: flex;
             justify-content: center;
             direction: rtl;
+            margin-bottom: 15px;
         }
         .rating input {
             display: none;
         }
         .rating label {
-            font-size: 25px;
+            font-size: 30px;
             color: grey;
             cursor: pointer;
         }
@@ -54,13 +60,24 @@
         .rating label:hover ~ label {
             color: gold;
         }
-        .hidden {
-            display: none;
-        }
         .loading {
             display: none;
             font-size: 18px;
-            color: blue;
+            color: #0073e6;
+            font-weight: bold;
+        }
+        button {
+            background: #0073e6;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #005bb5;
         }
         footer {
             margin-top: 20px;
@@ -86,13 +103,13 @@
             <input type="text" id="lastName" required>
             
             <label for="email">Email:</label>
-            <input type="email" id="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+            <input type="email" id="email" required>
             
             <label for="batchNumber">Batch Number:</label>
             <input type="text" id="batchNumber" required>
             
             <label for="regNumber">Registration Number:</label>
-            <input type="text" id="regNumber" pattern="[A-Z0-9/]+" required>
+            <input type="text" id="regNumber" required>
             
             <label for="feedback">Feedback (min. 50 words):</label>
             <textarea id="feedback" required></textarea>
@@ -100,10 +117,10 @@
             <label>Rate Your Experience:</label>
             <div class="rating">
                 <input type="radio" id="star5" name="rating" value="5" required><label for="star5">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" required><label for="star4">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" required><label for="star3">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" required><label for="star2">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" required><label for="star1">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
             </div>
             
             <button type="submit">Submit</button>
@@ -126,9 +143,15 @@
             
             document.getElementById("loadingText").style.display = "block";
             
-            setTimeout(() => {
+            fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+                method: "POST",
+                body: new FormData(event.target)
+            })
+            .then(response => response.text())
+            .then(data => {
                 window.location.href = "thank_you.html";
-            }, 2000);
+            })
+            .catch(error => console.error("Error:", error));
         });
     </script>
 </body>
