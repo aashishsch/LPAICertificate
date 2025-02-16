@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Your Certificate - AI Fundamentals Workshop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('ai_background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            margin: auto;
+        }
+        .header {
+            background: blue;
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+        }
+        label, input, textarea, select {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input, textarea, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .rating {
+            display: flex;
+            justify-content: center;
+            direction: rtl;
+        }
+        .rating input {
+            display: none;
+        }
+        .rating label {
+            font-size: 25px;
+            color: grey;
+            cursor: pointer;
+        }
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: gold;
+        }
+        .hidden {
+            display: none;
+        }
+        .loading {
+            display: none;
+            font-size: 18px;
+            color: blue;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Request Your Certificate</h2>
+            <h3>AI Fundamentals Workshop</h3>
+            <h4>by CA Aashish Sachdev</h4>
+        </div>
+        <form id="certificateForm">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required>
+            
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+            
+            <label for="batchNumber">Batch Number:</label>
+            <input type="text" id="batchNumber" required>
+            
+            <label for="regNumber">Registration Number:</label>
+            <input type="text" id="regNumber" pattern="[A-Z0-9/]+" required>
+            
+            <label for="feedback">Feedback (min. 50 words):</label>
+            <textarea id="feedback" required></textarea>
+            
+            <label>Rate Your Experience:</label>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5" required><label for="star5">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4" required><label for="star4">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3" required><label for="star3">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2" required><label for="star2">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1" required><label for="star1">&#9733;</label>
+            </div>
+            
+            <button type="submit">Submit</button>
+            <p class="loading" id="loadingText">Processing your request, please wait...</p>
+        </form>
+    </div>
+    
+    <footer>
+        &copy; 2025 AI Workshop. All rights reserved.
+    </footer>
+    
+    <script>
+        document.getElementById("certificateForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let feedback = document.getElementById("feedback").value.trim();
+            if (feedback.split(" ").length < 50) {
+                alert("Feedback must be at least 50 words!");
+                return;
+            }
+            
+            document.getElementById("loadingText").style.display = "block";
+            
+            setTimeout(() => {
+                window.location.href = "thank_you.html";
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
