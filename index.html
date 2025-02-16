@@ -97,22 +97,22 @@
         </div>
         <form id="certificateForm">
             <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" required>
+            <input type="text" id="firstName" name="firstName" required>
             
             <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" required>
+            <input type="text" id="lastName" name="lastName" required>
             
             <label for="email">Email:</label>
-            <input type="email" id="email" required>
+            <input type="email" id="email" name="email" required>
             
             <label for="batchNumber">Batch Number:</label>
-            <input type="text" id="batchNumber" required>
+            <input type="text" id="batchNumber" name="batchNumber" required>
             
             <label for="regNumber">Registration Number:</label>
-            <input type="text" id="regNumber" required>
+            <input type="text" id="regNumber" name="regNumber" required>
             
             <label for="feedback">Feedback (min. 50 words):</label>
-            <textarea id="feedback" required></textarea>
+            <textarea id="feedback" name="feedback" required></textarea>
             
             <label>Rate Your Experience:</label>
             <div class="rating">
@@ -135,17 +135,11 @@
     <script>
         document.getElementById("certificateForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            let feedback = document.getElementById("feedback").value.trim();
-            if (feedback.split(" ").length < 50) {
-                alert("Feedback must be at least 50 words!");
-                return;
-            }
-            
-            document.getElementById("loadingText").style.display = "block";
+            let formData = new FormData(event.target);
             
             fetch("https://script.google.com/macros/s/AKfycbzbm6XWJvIAJ9WnQ5qtjN5G17xNkBCJaDWm_khn3ym9XbKyjZwh5zBGYheSyy1wZEIU/exec", {
                 method: "POST",
-                body: new FormData(event.target)
+                body: formData
             })
             .then(response => response.text())
             .then(data => {
