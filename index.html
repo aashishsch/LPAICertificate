@@ -66,6 +66,20 @@
             color: #0073e6;
             font-weight: bold;
         }
+        .spinner {
+            display: none;
+            margin: 20px auto;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top-color: #0073e6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
         button {
             background: #0073e6;
             color: white;
@@ -124,6 +138,7 @@
             </div>
             
             <button type="submit">Submit</button>
+            <div class="spinner" id="spinner"></div>
             <p class="loading" id="loadingText">Processing your request, please wait...</p>
         </form>
     </div>
@@ -135,6 +150,8 @@
     <script>
         document.getElementById("certificateForm").addEventListener("submit", function(event) {
             event.preventDefault();
+            document.getElementById("loadingText").style.display = "block";
+            document.getElementById("spinner").style.display = "block";
             let formData = new FormData(event.target);
             
             fetch("https://script.google.com/macros/s/AKfycbzbm6XWJvIAJ9WnQ5qtjN5G17xNkBCJaDWm_khn3ym9XbKyjZwh5zBGYheSyy1wZEIU/exec", {
